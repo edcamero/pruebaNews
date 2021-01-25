@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace backend.DTO
 {
-    public class News
+    public class DTONews
     {
-        private int? idnews = null;
         private string author = null;
         private string title = null;
         private string description = null;
@@ -16,12 +15,7 @@ namespace backend.DTO
         private string publishedAt = null;
         private string content = null;
 
-        public int? IdNews
-        {
-            get { return idnews; }
-            set { idnews = value; }
-        }
-
+    
         public string Author {
             get => author; 
             set => author = value;

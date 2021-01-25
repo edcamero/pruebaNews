@@ -2,20 +2,51 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using NewsAPI;
 using NewsAPI.Constants;
 using NewsAPI.Models;
+using backend.DTO;
 
-
-namespace backend.Dao
+namespace backend.DAO
 {
     public class DAONews
     {
-        public DAONews getCityNews (string city)
+        public static List<DTO.DTONews> listDtoNews = new List<DTONews>();
+        public List<DTONews> GetCityNews (string city)
         {
-            DAONews daoNews = new DAONews();
+            listDtoNews.Clear();
+            string keyApi = Environment.GetEnvironmentVariable("API_KEY_NEWSAPI");
+            var newsApiClient = new NewsApiClient(keyApi);
+            var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
+            {
+                Q = city,
+                Language = Languages.ES
 
-            return daoNews;
+            });
+            if (articlesResponse.Status == Statuses.Ok)
+            {
+                // total results found
+                Console.WriteLine(articlesResponse.TotalResults);
+                // here's the first 20
+                foreach (var article in articlesResponse.Articles)
+                {
+                    listDtoNews.Add(new DTONews
+                    { 
+                        Author = article.Author,
+                        Title = article.Title,
+                        Description = article.Description,
+                        Url = article.Url,
+                        UrlToImage = article.UrlToImage,
+                        PublishedAt = article.PublishedAt.ToString(),
+                        Content = article.Content
+
+                    });
+                }
+            }
+            
+
+            return listDtoNews;
         }
     }
 }

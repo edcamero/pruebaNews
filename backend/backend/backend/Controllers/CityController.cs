@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backend.DAO;
+using backend.DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,20 +14,25 @@ namespace backend.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
+        private static DAONews daoNews = new DAONews();
+        private static DAOCurrentWeather daoCurrentWeather = new DAOCurrentWeather();
         // GET: api/<CityController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("{cityName}")]
+        public IActionResult Get(string cityName)
         {
-            return new string[] { "value1", "value2" };
+
+            DTOCity dtoCity = new DTOCity();
+            dtoCity.CurrentWeather = daoCurrentWeather.GetCityCurrentWeather(cityName);
+            if (dtoCity.CurrentWeather == null)
+            {
+                string message = "Ciudad no encontrada";
+                return BadRequest(message);
+            }
+            dtoCity.News = daoNews.GetCityNews(cityName);
+            return Ok(dtoCity);
         }
 
-        // GET api/<CityController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
+      
         // POST api/<CityController>
         [HttpPost]
         public void Post([FromBody] string value)
