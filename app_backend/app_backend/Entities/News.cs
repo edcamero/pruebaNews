@@ -10,10 +10,10 @@ namespace app_backend.Entities
     [Table("news")]
     public class News
     {
-        [Key]
-        [Column("news_id")]
+        [Key, Column("news_id")]
         public int IdNews{ get; set; }
        
+        
         [Column("news_author")]
         public string author { get; set; }
         [Column("news_title")]

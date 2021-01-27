@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using app_backend.Contexts;
 using app_backend.Entities;
 using app_backend.DAO;
+using app_backend.DTO;
 
 namespace app_backend.Controllers
 {
@@ -17,6 +18,8 @@ namespace app_backend.Controllers
     {
         private readonly AppContextDb _context;
         private DAOHistory _daoHistory;
+        private List<DTOHistory> history = new List<DTOHistory>();
+        private List<History> listHistoryDao = new List<History>();
 
         public HistoriesController(AppContextDb context)
         {
@@ -28,8 +31,50 @@ namespace app_backend.Controllers
         // GET: api/Histories
         [HttpGet]
         public IActionResult GetHistory()
+
         {
-            return Ok(_daoHistory.GetHistories());
+            history.Clear();
+            listHistoryDao = _daoHistory.GetHistories();
+
+            foreach (History historyDao in listHistoryDao)
+            {
+                List<DTONews> dtoNewsList = new List<DTONews>();
+                
+                foreach( News news in historyDao.News)
+                {
+                    DTONews auxNews = new DTONews();
+                    auxNews.Author = news.author;
+                    auxNews.Content = news.content;
+                    auxNews.Description = news.description;
+                    auxNews.PublishedAt = news.publishedAt;
+                    auxNews.Title = news.title;
+                    auxNews.Url = news.url;
+                    auxNews.UrlToImage = news.urlToImage;
+                    dtoNewsList.Add(auxNews);
+                }
+
+                history.Add(new DTOHistory
+                {
+                    City = historyDao.City,
+                    Info = new DTOCity
+                    {
+                        News = dtoNewsList,
+                        CurrentWeather=new DTOCurrentWeather
+                        {
+                            ObservationTime= historyDao.CurrentWeather.ObservationTime,
+                            Temperature= historyDao.CurrentWeather.Temperature,
+                            WindSpeed= historyDao.CurrentWeather.WindSpeed,
+                            WindDegree= historyDao.CurrentWeather.WindDegree,
+                            Pressure= historyDao.CurrentWeather.Pressure,
+                            Humidity= historyDao.CurrentWeather.Humidity,
+                            CloudCover= historyDao.CurrentWeather.CloudCover,
+                            FeelsLike= historyDao.CurrentWeather.FeelsLike,
+                            Visibility= historyDao.CurrentWeather.Visibility
+                        }
+                    }
+                });
+            }
+            return Ok(new DTOHistoryView { history = history });
         }
 
         // GET: api/Histories/5
@@ -108,7 +153,7 @@ namespace app_backend.Controllers
 
         private bool HistoryExists(int id)
         {
-            return _context.History.Any(e => e.Id== id);
+            return _context.History.Any(e => e.Id == id);
         }
     }
 }

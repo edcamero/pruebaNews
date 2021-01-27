@@ -9090,11 +9090,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USUARIO\\source\\repos\\app_backend\\app_backend\\app_backend.csproj",
+      "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\prueba\\app_backend\\app_backend\\app_backend.csproj",
       "projectName": "app_backend",
-      "projectPath": "C:\\Users\\USUARIO\\source\\repos\\app_backend\\app_backend\\app_backend.csproj",
+      "projectPath": "C:\\Users\\USUARIO\\Desktop\\prueba\\app_backend\\app_backend\\app_backend.csproj",
       "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USUARIO\\source\\repos\\app_backend\\app_backend\\obj\\",
+      "outputPath": "C:\\Users\\USUARIO\\Desktop\\prueba\\app_backend\\app_backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

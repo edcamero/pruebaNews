@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace app_backend.Entities
 {
+    [Table("history")]
     public class History
     {
-        [Key]
-        [Column("hist_id")]
+        [Column("hist_id"),Key]
         public int Id { get; set; }
         [Column("hist_city")]
         public string City { get; set; }
         [ForeignKey("hist_id")]
         public virtual List<News> News { get; set; }
+        public virtual CurrentWeather CurrentWeather{ get; set; }
 
-        
+
+
     }
 }

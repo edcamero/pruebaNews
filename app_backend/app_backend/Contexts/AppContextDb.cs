@@ -16,7 +16,10 @@ namespace app_backend.Contexts
 
         public DbSet<app_backend.Entities.History> History { get; set; }
         public DbSet<app_backend.Entities.News> News { get; set; }
+        public DbSet<app_backend.Entities.CurrentWeather> CurrentWeather { get; set; }
+        public DbSet<app_backend.Entities.WeatherDescription> WeatherDescription { get; set; }
 
-        
+       
+
     }
 }

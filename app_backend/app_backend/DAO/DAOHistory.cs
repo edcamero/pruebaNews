@@ -13,7 +13,6 @@ namespace app_backend.DAO
     public class DAOHistory
     {
         
-        public static List<History> listHistory = new List<History>();
         private readonly AppContextDb _context;
 
         public DAOHistory(AppContextDb context)
@@ -23,7 +22,8 @@ namespace app_backend.DAO
 
         public  List<History> GetHistories()
         {
-            return  _context.History.Include("News").ToList();
+                        
+            return _context.History.Include("News").Include("CurrentWeather").ToList();
         }
 
     }

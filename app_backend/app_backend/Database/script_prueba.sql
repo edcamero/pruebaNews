@@ -13,14 +13,15 @@ CREATE TABLE History (
 );
 CREATE TABLE current_weather (
 	  cuwe_id int identity (1,1) NOT NULL,
-	  hist_id int NOT NULL,
+	  hist_id int ,
       cuwe_observation_time varchar(50),
-	  cuwe_temperature float,
-	  cuwe_wind_speed float,
-	  cuwe_degree float,
+	  cuwe_temperature float(53),
+	  cuwe_wind_speed float(53),
+	  cuwe_wind_degree int,
 	  cuwe_pressure int,
+	  cuwe_humadity int,
 	  cuwe_cloud_cover int,
-	  cuwe_fells_like float,
+	  cuwe_fells_like float(53),
 	  cuwe_visibility int,	  
 	  PRIMARY KEY (cuwe_id),
 	  FOREIGN KEY (hist_id) REFERENCES History (hist_id)

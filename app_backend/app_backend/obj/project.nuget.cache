@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4NvO4QMpozvvew0xlXOy+kY4onE7M0RFl4KsRhbAhz3MG3SSNlW3JIEzo3B1aOwQmq18TKaGqHiaJmShQkR0/g==",
+  "dgSpecHash": "y5HzDMAojUp1fNg0x0pBY48h8vsyu+lUDplgzbyOzJKE55i8ihZhSayZT58XzcLjPck29xjSbVbjNbut+ej5Lw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USUARIO\\source\\repos\\app_backend\\app_backend\\app_backend.csproj",
+  "projectFilePath": "C:\\Users\\USUARIO\\Desktop\\prueba\\app_backend\\app_backend\\app_backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USUARIO\\.nuget\\packages\\aylien.newsapi\\3.0.0\\aylien.newsapi.3.0.0.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

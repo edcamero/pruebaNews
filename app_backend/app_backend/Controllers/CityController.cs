@@ -56,11 +56,33 @@ namespace app_backend.Controllers
                 };
                 newsList.Add(newsObject);
             }
+            List<WeatherDescription> weatherDescriptions = new List<WeatherDescription>();
 
+            foreach (string value in dtoCity.CurrentWeather.WeatherDescriptions)
+            {
+                weatherDescriptions.Add(new WeatherDescription { Value = value });
+            }
+            CurrentWeather currentWeatherAux = new CurrentWeather
+            {
+                CloudCover = dtoCity.CurrentWeather.CloudCover,
+                Humidity = dtoCity.CurrentWeather.Humidity,
+                ObservationTime = dtoCity.CurrentWeather.ObservationTime,
+                Temperature = dtoCity.CurrentWeather.Temperature,
+                FeelsLike = dtoCity.CurrentWeather.FeelsLike,
+                WindDegree = dtoCity.CurrentWeather.WindDegree,
+                WindSpeed = dtoCity.CurrentWeather.WindSpeed,
+                Visibility = dtoCity.CurrentWeather.Visibility,
+                Pressure = dtoCity.CurrentWeather.Pressure,
+                WeatherDescription = weatherDescriptions
+
+            };
+            
             History history = new History
             {
                 City = cityName,
-                News = newsList
+                News= newsList,
+                CurrentWeather= currentWeatherAux
+
             };
             _context.History.Add(history);
             _context.SaveChanges();
@@ -68,22 +90,7 @@ namespace app_backend.Controllers
         }
 
       
-        // POST api/<CityController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+      
 
-        // PUT api/<CityController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CityController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
