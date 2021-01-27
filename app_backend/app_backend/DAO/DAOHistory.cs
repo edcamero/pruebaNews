@@ -23,7 +23,7 @@ namespace app_backend.DAO
         public  List<History> GetHistories()
         {
                         
-            return _context.History.Include("News").Include("CurrentWeather").ToList();
+            return _context.History.Include("News").Include("CurrentWeather").Include("CurrentWeather.WeatherDescription").ToList();
         }
 
     }

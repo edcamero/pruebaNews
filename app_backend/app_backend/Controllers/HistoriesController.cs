@@ -52,7 +52,11 @@ namespace app_backend.Controllers
                     auxNews.UrlToImage = news.urlToImage;
                     dtoNewsList.Add(auxNews);
                 }
-
+                List<string> WeatherDescriptionsListString = new List<string>();
+                foreach (WeatherDescription WDescriptions in historyDao.CurrentWeather.WeatherDescription)
+                {
+                    WeatherDescriptionsListString.Add(WDescriptions.Value);
+                }
                 history.Add(new DTOHistory
                 {
                     City = historyDao.City,
@@ -69,7 +73,8 @@ namespace app_backend.Controllers
                             Humidity= historyDao.CurrentWeather.Humidity,
                             CloudCover= historyDao.CurrentWeather.CloudCover,
                             FeelsLike= historyDao.CurrentWeather.FeelsLike,
-                            Visibility= historyDao.CurrentWeather.Visibility
+                            Visibility= historyDao.CurrentWeather.Visibility,
+                            WeatherDescriptions= WeatherDescriptionsListString
                         }
                     }
                 });
