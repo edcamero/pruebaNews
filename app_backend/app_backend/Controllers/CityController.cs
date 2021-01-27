@@ -28,18 +28,18 @@ namespace app_backend.Controllers
 
         }
         // GET: api/<CityController>
-        [HttpGet("{cityName}")]
-        public IActionResult Get(string cityName)
+        [HttpGet("")]
+        public IActionResult Get(string name)
         {
 
             DTOCity dtoCity = new DTOCity();
-            dtoCity.CurrentWeather = daoCurrentWeather.GetCityCurrentWeatherApi(cityName);
+            dtoCity.CurrentWeather = daoCurrentWeather.GetCityCurrentWeatherApi(name);
             if (dtoCity.CurrentWeather == null)
             {
                 string message = "Ciudad no encontrada";
                 return BadRequest(message);
             }
-            dtoCity.News = daoNews.GetCityNews(cityName);
+            dtoCity.News = daoNews.GetCityNews(name);
             newsList.Clear();
             foreach (DTONews news in dtoCity.News)
             {
@@ -74,23 +74,17 @@ namespace app_backend.Controllers
                 Visibility = dtoCity.CurrentWeather.Visibility,
                 Pressure = dtoCity.CurrentWeather.Pressure,
                 WeatherDescription = weatherDescriptions
-
             };
             
             History history = new History
             {
-                City = cityName,
+                City = name,
                 News= newsList,
                 CurrentWeather= currentWeatherAux
-
             };
             _context.History.Add(history);
             _context.SaveChanges();
             return Ok(dtoCity);
-        }
-
-      
-      
-
+        } 
     }
 }

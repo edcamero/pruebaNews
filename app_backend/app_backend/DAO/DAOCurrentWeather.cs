@@ -41,8 +41,8 @@ namespace app_backend.DAO
                     Humidity = Convert.ToInt32(currentWeather.Main.Humidity),
                     CloudCover = Convert.ToInt32(currentWeather.Clouds.All),
                     FeelsLike = currentWeather.Main.FeelsLike,
-                    Visibility = Convert.ToInt32(currentWeather.Visibility)
-
+                    Visibility = Convert.ToInt32(currentWeather.Visibility),
+                    WeatherDescriptions = new List<string>()
 
                 };
                 foreach (Weather weather in currentWeather.Weather)

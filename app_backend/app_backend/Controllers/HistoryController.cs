@@ -14,21 +14,21 @@ namespace app_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HistoriesController : ControllerBase
+    public class HistoryController : ControllerBase
     {
         private readonly AppContextDb _context;
         private DAOHistory _daoHistory;
         private List<DTOHistory> history = new List<DTOHistory>();
         private List<History> listHistoryDao = new List<History>();
 
-        public HistoriesController(AppContextDb context)
+        public HistoryController(AppContextDb context)
         {
             _context = context;
             _daoHistory = new DAOHistory(context);
 
         }
 
-        // GET: api/Histories
+        // GET: api/History
         [HttpGet]
         public IActionResult GetHistory()
 
@@ -82,83 +82,7 @@ namespace app_backend.Controllers
             return Ok(new DTOHistoryView { history = history });
         }
 
-        // GET: api/Histories/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<History>> GetHistory(int id)
-        {
-            var history = await _context.History.FindAsync(id);
+   
 
-            if (history == null)
-            {
-                return NotFound();
-            }
-
-            return history;
-        }
-
-        // PUT: api/Histories/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutHistory(int id, History history)
-        {
-            if (id != history.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(history).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HistoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Histories
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<History>> PostHistory(History history)
-        {
-            _context.History.Add(history);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetHistory", new { id = history.Id }, history);
-        }
-
-        // DELETE: api/Histories/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<History>> DeleteHistory(int id)
-        {
-            var history = await _context.History.FindAsync(id);
-            if (history == null)
-            {
-                return NotFound();
-            }
-
-            _context.History.Remove(history);
-            await _context.SaveChangesAsync();
-
-            return history;
-        }
-
-        private bool HistoryExists(int id)
-        {
-            return _context.History.Any(e => e.Id == id);
-        }
     }
 }

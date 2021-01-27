@@ -2,6 +2,7 @@ CREATE  DATABASE pruebadb;
 GO
 USE pruebadb;
 GO
+
 DROP TABLE IF EXISTS dbo.news;
 DROP TABLE IF EXISTS dbo.weather_description;
 DROP TABLE IF EXISTS dbo.current_weather;
