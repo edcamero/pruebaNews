@@ -24,7 +24,7 @@ const SearchCity: React.FC = () => {
       <Grid container direction="row" justify="center" alignItems="center" className={classes.main}>
         Buscando
         <Button variant="outlined" color="primary" onClick={handleClick} className={classes.button}>
-          Ver Historial
+          Buscar
         </Button>
       </Grid>
     </React.Fragment>

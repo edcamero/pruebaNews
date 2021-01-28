@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,18 +15,29 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 const Main: React.FC = () => {
+  const history = useHistory()
   const classes = useStyles()
-  const handleClick = () => {
-    return 'hola'
+  const handleClickHome = (value: string) => {
+    history.push(value)
   }
 
   return (
     <React.Fragment>
       <Grid container direction="row" justify="center" alignItems="center" className={classes.main}>
-        <Button variant="outlined" color="primary" onClick={handleClick} className={classes.button}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => handleClickHome('/search')}
+          className={classes.button}
+        >
           Buscar Datos
         </Button>
-        <Button variant="outlined" color="primary" onClick={handleClick} className={classes.button}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => handleClickHome('/history')}
+          className={classes.button}
+        >
           Historial
         </Button>
       </Grid>

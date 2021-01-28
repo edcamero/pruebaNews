@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,7 +22,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 const Menu: React.FC = () => {
+  const history = useHistory()
   const classes = useStyles()
+  const handleClick = (value: string) => {
+    history.push(value)
+  }
   return (
     <React.Fragment>
       <div className={classes.root}>
@@ -38,8 +43,12 @@ const Menu: React.FC = () => {
             <Typography variant="h6" className={classes.title}>
               Enyerson Camero
             </Typography>
-            <Button color="inherit">Buscar Datos</Button>
-            <Button color="inherit">Historial</Button>
+            <Button color="inherit" onClick={() => handleClick('/search')}>
+              Buscar Datos
+            </Button>
+            <Button color="inherit" onClick={() => handleClick('/history')}>
+              Historial
+            </Button>
           </Toolbar>
         </AppBar>
       </div>
