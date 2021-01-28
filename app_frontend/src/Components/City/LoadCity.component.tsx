@@ -37,6 +37,11 @@ const LoadCity: React.FC<ILoadCityProps> = (props) => {
   React.useEffect(() => {
     if (props.isLoading && props.name !== '') {
       props.setCity(CityFiels)
+      fetch(process.env.REACT_APP_API_URL + '/' + props.name || '')
+        .then((res) => res.json())
+        .then((data) => {
+          props.setCity(data)
+        })
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isLoading, props.name])
