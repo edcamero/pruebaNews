@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import SearchCity from '../SearchCity/SearchCity.component'
 import History from '../History/History.component'
 import AppLayout from '../Layouts/AppLayout.component'
-import InfoCity from '../InfoCity/InfoCity.component'
+import ViewCity from '../City/ViewCity.component'
 
 const Router: React.FC = () => {
   return (
@@ -18,8 +18,8 @@ const Router: React.FC = () => {
             <Route path="/history">
               <History />
             </Route>
-            <Route path="/city">
-              <InfoCity />
+            <Route path="/city/:name">
+              <ViewCity />
             </Route>
             <Route path="/">
               <Main />

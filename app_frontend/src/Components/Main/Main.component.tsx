@@ -30,7 +30,7 @@ const Main: React.FC = () => {
           onClick={() => handleClickHome('/search')}
           className={classes.button}
         >
-          Buscar Datos
+          Buscar Ciudad
         </Button>
         <Button
           variant="outlined"
