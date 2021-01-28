@@ -23,7 +23,9 @@
       "launchBrowser": true,
       "launchUrl": "api/history",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "API_KEY_NEWSAPI": "cb9de7f0ec184e4bbdf0f59e0248c86b",
+        "API_KEY_CURRENT_WEATHER": "d0ae22b5c786eafa0d64571e48828606"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }

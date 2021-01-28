@@ -36,8 +36,12 @@ namespace app_backend.Controllers
             dtoCity.CurrentWeather = daoCurrentWeather.GetCityCurrentWeatherApi(name);
             if (dtoCity.CurrentWeather == null)
             {
-                string message = "Ciudad no encontrada";
-                return BadRequest(message);
+                
+                return NotFound(
+                    new DTOMessage {
+                        code=404,
+                        Message= "City not found" 
+                    });
             }
             dtoCity.News = daoNews.GetCityNews(name);
             newsList.Clear();
