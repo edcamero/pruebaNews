@@ -17,6 +17,7 @@ namespace app_backend
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "AllowAll";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,9 +33,17 @@ namespace app_backend
             services.AddDbContext<AppContextDb>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ConnectionStrings")));
 
-            
+            services.AddCors(options =>
+                {
+                    options.AddPolicy(MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:3000", Environment.GetEnvironmentVariable("APP_URL_FRONTEND"))
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                                  });
+                });
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -48,6 +57,8 @@ namespace app_backend
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("AllowAll");
 
             app.UseEndpoints(endpoints =>
             {

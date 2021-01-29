@@ -73,7 +73,7 @@
     }],
     "@typescript-eslint/interface-name-prefix": "off",
     "no-alert": "error",
-    "no-console": "error",
+    "no-console": "warn",
     "prefer-const": [0, {
       "ignore": ["history"]
     }]

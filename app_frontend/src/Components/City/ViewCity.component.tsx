@@ -12,7 +12,7 @@ const ViewCity: React.FC = () => {
 
   React.useEffect(() => {
     if (!isLoading && 'name' in params) {
-      setCityName(params['id'])
+      setCityName(params['name'])
       setIsLoading(true)
     }
   }, [isLoading, params, setCityName, setIsLoading])

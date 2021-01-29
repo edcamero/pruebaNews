@@ -30,7 +30,7 @@ const Menu: React.FC = () => {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton
               edge="start"

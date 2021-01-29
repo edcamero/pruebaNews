@@ -25,14 +25,22 @@ const useStyles = makeStyles((theme: Theme) =>
 const SearchCity: React.FC = () => {
   const classes = useStyles()
   const history = useHistory()
+  const [nameCity, setnameCity] = React.useState('')
   const handleClick = (value: string) => {
-    history.push(value)
+    history.push(value + '/' + nameCity)
   }
   return (
     <React.Fragment>
       <Grid container direction="row" justify="center" alignItems="center" className={classes.main}>
         <form className={classes.root} noValidate autoComplete="off">
-          <TextField id="outlined-basic" label="Ciudad" variant="outlined" margin={'dense'} />
+          <TextField
+            id="outlined-basic"
+            label="Ciudad"
+            variant="outlined"
+            margin={'dense'}
+            value={nameCity}
+            onChange={(e) => setnameCity(e.target.value)}
+          />
           <Button
             variant="outlined"
             size="large"

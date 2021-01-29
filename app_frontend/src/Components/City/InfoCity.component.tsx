@@ -9,7 +9,7 @@ import NewsContainer from '../News/NewsContainer.component'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     main: {
-      margin: theme.spacing(5, 0),
+      margin: theme.spacing(10, 0),
     },
     button: {
       margin: theme.spacing(5, 2),
@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '25ch',
       },
     },
+    offset: theme.mixins.toolbar,
   })
 )
 interface IInfoCity {
@@ -27,7 +28,6 @@ interface IInfoCity {
 }
 const InfoCity: React.FC<IInfoCity> = (props) => {
   const classes = useStyles()
-
   return (
     <React.Fragment>
       <Container>
@@ -35,8 +35,8 @@ const InfoCity: React.FC<IInfoCity> = (props) => {
           container
           direction="row"
           justify="center"
-          alignItems="center"
-          className={classes.main}
+          alignItems="flex-start"
+          className={classes.main + ' ' + classes.offset}
         >
           <Grid item xs={3}>
             <InfoCurrentWeather currentWeather={props.city.currentWeather} />

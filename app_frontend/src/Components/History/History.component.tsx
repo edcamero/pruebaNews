@@ -1,5 +1,158 @@
 import React from 'react'
+import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import IHistory from '../../Resources/IHistory'
+import LoadHistory from './LoadHistory.component'
+import Paper from '@material-ui/core/Paper'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TablePagination from '@material-ui/core/TablePagination'
+import TableRow from '@material-ui/core/TableRow'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    main: {
+      margin: theme.spacing(10, 0),
+    },
+    button: {
+      margin: theme.spacing(5, 2),
+    },
+    container: {
+      maxHeight: 440,
+    },
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+    offset: theme.mixins.toolbar,
+  })
+)
+
+interface IColumn {
+  id: 'city' | 'size' | 'date' | 'temperature' | 'cloud'
+  label: string
+  minWidth?: number
+  align?: 'right'
+  format?: (value: number) => string
+}
+
+const columns: IColumn[] = [
+  { id: 'city', label: 'Ciudad', minWidth: 100 },
+  { id: 'size', label: '# noticias', minWidth: 100 },
+  {
+    id: 'temperature',
+    label: 'Teamperatura',
+    minWidth: 100,
+    align: 'right',
+  },
+  {
+    id: 'cloud',
+    label: 'Cantidad de nubes',
+    minWidth: 100,
+    align: 'right',
+  },
+  {
+    id: 'date',
+    label: 'Fecha Datos clima',
+    minWidth: 170,
+    align: 'right',
+  },
+]
+
 const History: React.FC = () => {
-  return <React.Fragment>pagina de historial</React.Fragment>
+  const classes = useStyles()
+  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [historyList, setHistoryList] = React.useState<IHistory[]>([])
+  const [page, setPage] = React.useState(0)
+  const [rowsPerPage, setRowsPerPage] = React.useState(10)
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage)
+  }
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value)
+    setPage(0)
+  }
+  return (
+    <React.Fragment>
+      <LoadHistory
+        isLoading={isLoading}
+        setHistoryList={setHistoryList}
+        setIsLoading={setIsLoading}
+      ></LoadHistory>
+
+      <Container>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+          className={classes.main + ' ' + classes.offset}
+        >
+          <Paper className={classes.root}>
+            {isLoading && (
+              <React.Fragment>
+                <TableContainer className={classes.container}>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow>
+                        {columns.map((column) => (
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            style={{ minWidth: column.minWidth }}
+                          >
+                            {column.label}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {historyList.map((history, index) => {
+                        return (
+                          <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                            <TableCell key={columns[0].id} align={columns[0].align}>
+                              {history.city}
+                            </TableCell>
+                            <TableCell key={columns[1].id} align={columns[1].align}>
+                              {history.info.news.length}
+                            </TableCell>
+                            <TableCell key={columns[2].id} align={columns[2].align}>
+                              {history.info.currentWeather.temperature}
+                            </TableCell>
+                            <TableCell key={columns[3].id} align={columns[3].align}>
+                              {history.info.currentWeather.cloudCover}
+                            </TableCell>
+                            <TableCell key={columns[4].id} align={columns[4].align}>
+                              {history.info.currentWeather.observationTime}
+                            </TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[10, 25, 100]}
+                  component="div"
+                  count={historyList.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onChangePage={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+              </React.Fragment>
+            )}
+          </Paper>
+        </Grid>
+      </Container>
+    </React.Fragment>
+  )
 }
 export default History
