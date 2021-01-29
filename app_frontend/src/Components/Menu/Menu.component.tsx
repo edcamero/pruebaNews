@@ -45,7 +45,7 @@ const Menu: React.FC = () => {
               Enyerson Camero
             </Typography>
             <Button color="inherit" onClick={() => handleClick('/search')}>
-              Buscar Datos
+              Buscar Ciudad
             </Button>
             <Button color="inherit" onClick={() => handleClick('/history')}>
               Historial

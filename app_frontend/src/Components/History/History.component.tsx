@@ -11,6 +11,11 @@ import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import IconButton from '@material-ui/core/IconButton'
+import VisibilityIcon from '@material-ui/icons/Visibility'
+import InfoCity from '../City/InfoCity.component'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 interface IColumn {
-  id: 'city' | 'size' | 'date' | 'temperature' | 'cloud'
+  id: 'city' | 'size' | 'date' | 'temperature' | 'cloud' | 'action'
   label: string
   minWidth?: number
   align?: 'right'
@@ -61,13 +66,25 @@ const columns: IColumn[] = [
     minWidth: 170,
     align: 'right',
   },
+  {
+    id: 'date',
+    label: 'Acción',
+    minWidth: 170,
+    align: 'right',
+  },
 ]
 
 const History: React.FC = () => {
   const classes = useStyles()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [historyAux, setHistoryAux] = React.useState<IHistory | null>(null)
   const [historyList, setHistoryList] = React.useState<IHistory[]>([])
+  const [option, setOption] = React.useState('table')
 
+  function handleClick(history: IHistory) {
+    setHistoryAux(history)
+    setOption('detail')
+  }
   return (
     <React.Fragment>
       <LoadHistory
@@ -85,7 +102,7 @@ const History: React.FC = () => {
           className={classes.main + ' ' + classes.offset}
         >
           <Paper className={classes.root}>
-            {isLoading && (
+            {option === 'table' && isLoading && (
               <React.Fragment>
                 <TableContainer className={classes.container}>
                   <Table stickyHeader aria-label="sticky table">
@@ -121,12 +138,35 @@ const History: React.FC = () => {
                             <TableCell key={columns[4].id} align={columns[4].align}>
                               {history.info.currentWeather.observationTime}
                             </TableCell>
+                            <TableCell key={columns[4].id} align={columns[4].align}>
+                              <IconButton
+                                aria-label="delete"
+                                onClick={() => {
+                                  handleClick(history)
+                                }}
+                              >
+                                <VisibilityIcon />
+                              </IconButton>
+                            </TableCell>
                           </TableRow>
                         )
                       })}
                     </TableBody>
                   </Table>
                 </TableContainer>
+              </React.Fragment>
+            )}
+            {option === 'detail' && isLoading && historyAux !== null && (
+              <React.Fragment>
+                <Button
+                  color="secondary"
+                  size="small"
+                  startIcon={<ArrowBackIcon />}
+                  onClick={() => setOption('table')}
+                >
+                  Atras
+                </Button>
+                <InfoCity city={historyAux.info} />
               </React.Fragment>
             )}
           </Paper>
