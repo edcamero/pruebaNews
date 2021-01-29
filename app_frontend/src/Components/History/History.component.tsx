@@ -10,7 +10,6 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
-import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,12 +21,11 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(5, 2),
     },
     container: {
-      maxHeight: 440,
+      minHeight: 440,
     },
     root: {
       '& > *': {
-        margin: theme.spacing(1),
-        width: '25ch',
+        paddingVertical: theme.spacing(5),
       },
     },
     offset: theme.mixins.toolbar,
@@ -69,16 +67,7 @@ const History: React.FC = () => {
   const classes = useStyles()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [historyList, setHistoryList] = React.useState<IHistory[]>([])
-  const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage)
-  }
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value)
-    setPage(0)
-  }
   return (
     <React.Fragment>
       <LoadHistory
@@ -138,15 +127,6 @@ const History: React.FC = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[10, 25, 100]}
-                  component="div"
-                  count={historyList.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
               </React.Fragment>
             )}
           </Paper>

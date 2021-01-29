@@ -30,10 +30,15 @@ namespace app_backend.DAO
             }
             else
             {
+                
                 CurrentWeather currentWeather = CurrentWeather.FromJson(json);
+               
+                long beginTicks = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
+                DateTime start = new DateTime(beginTicks + currentWeather.Dt * 10000000, DateTimeKind.Utc);
                 dtoCurrentWeather = new DTOCurrentWeather
+                
                 {
-                    ObservationTime = DateTime.FromBinary(currentWeather.Dt).ToString(),
+                    ObservationTime = start.ToLocalTime().ToString(),
                     Temperature = currentWeather.Main.Temp,
                     WindSpeed = currentWeather.Wind.Speed,
                     WindDegree = Convert.ToInt32(currentWeather.Wind.Deg),
